@@ -1,0 +1,25 @@
+# deployment.yml
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ghost-blog
+  labels:
+    app: ghost-blog
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: ghost-blog
+    template:
+      metadata:
+        labels:
+          app: ghost-blog
+      spec:
+        containers:
+        # ghost container
+        - name: ghost-container
+          image: ghost:alpine
+          imagePullPolicy: IfNotPresent
+          # ghost always starts on this port
+          port:
+          - containerPort: 2368
